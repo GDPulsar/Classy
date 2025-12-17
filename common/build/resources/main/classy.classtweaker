@@ -1,0 +1,6 @@
+classTweaker v1 named
+
+inject-interface net/minecraft/server/level/ServerPlayer com/pulsar/classy/accessor/ServerPlayerClassAccessor
+inject-interface net/minecraft/server/level/ServerPlayer com/pulsar/classy/accessor/ServerPlayerAbilityAccessor
+inject-interface net/minecraft/client/player/LocalPlayer com/pulsar/classy/accessor/LocalPlayerClassAccessor
+inject-interface net/minecraft/client/player/LocalPlayer com/pulsar/classy/accessor/LocalPlayerAbilityAccessor

@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "classy",
+  "version": "${version}",
+  "name": "Classy",
+  "description": "A class and ability system for Minecraft mods!",
+  "authors": ["GDPulsar"],
+  "contact": {
+    "homepage": ""  },
+  "license": "All-Rights-Reserved",
+  "icon": "assets/classy/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.pulsar.classy.fabric.ClassyFabric"
+    ],
+    "client": [
+      "com.pulsar.classy.fabric.client.ClassyFabricClient"
+    ]
+  },
+  "mixins": [
+    "classy.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.18.3",
+    "minecraft": "~1.21.1",
+    "java": ">=21"
+    ,"architectury": ">=13.0.8"
+    ,"fabric-api": "*"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
