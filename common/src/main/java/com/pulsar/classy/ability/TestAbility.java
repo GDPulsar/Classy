@@ -31,7 +31,6 @@ public class TestAbility extends PlayerAbility {
 
     @Override
     public boolean canCast(Player player) {
-        Classy.LOGGER.info("has effect: {}, has health: {}", player.hasEffect(MobEffects.MOVEMENT_SLOWDOWN), player.getHealth() > player.getMaxHealth() / 2f);
         return player.hasEffect(MobEffects.MOVEMENT_SLOWDOWN) && player.getHealth() > player.getMaxHealth() / 2f;
     }
 
