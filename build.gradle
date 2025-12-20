@@ -50,21 +50,46 @@ subprojects {
         it.options.release = 21
     }
 
-    // Configure Maven publishing.
     publishing {
         publications {
-            mavenJava(MavenPublication) {
-                artifactId = base.archivesName.get()
+            mavenCommon(MavenPublication) {
                 from components.java
+
+                artifactId = "classy-common"
+
+                pom {
+                    name = "Classy! Common"
+                    description = "Common Architectury code for Classy!"
+                    url = "https://github.com/GDPulsar/Classy"
+
+                    developers {
+                        developer {
+                            id = "gdpulsar"
+                            name = "Pulsar"
+                        }
+                    }
+
+                    scm {
+                        connection = "scm:git:git://github.com/GDPulsar/Classy.git"
+                        developerConnection = "scm:git:ssh://github.com:GDPulsar/Classy.git"
+                        url = "https://github.com/GDPulsar/Classy"
+                    }
+                }
             }
         }
 
-        // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
         repositories {
-            // Add repositories to publish to here.
-            // Notice: This block does NOT have the same function as the block in the top level.
-            // The repositories here will be used for publishing your artifact, not for
-            // retrieving dependencies.
+            maven {
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/GDPulsar/Librarby")
+                credentials {
+                    username = findProperty("gpr.user")
+                    password = findProperty("gpr.token")
+                }
+                authentication {
+                    basic(BasicAuthentication)
+                }
+            }
         }
     }
 }
