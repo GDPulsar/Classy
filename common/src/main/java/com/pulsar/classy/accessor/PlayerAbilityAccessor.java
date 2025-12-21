@@ -1,50 +1,31 @@
 package com.pulsar.classy.accessor;
 
 import com.pulsar.classy.ability.PlayerAbility;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;
 
 public interface PlayerAbilityAccessor {
-    default List<PlayerAbility> classy$getAbilities() {
-        if (this instanceof LocalPlayer localPlayer) {
-            return localPlayer.classy$getAbilities();
-        } else if (this instanceof ServerPlayer serverPlayer) {
-            return serverPlayer.classy$getAbilities();
-        }
-        return null;
-    }
-    default void classy$setAbilities(List<PlayerAbility> abilities) {
-        if (this instanceof LocalPlayer localPlayer) {
-            localPlayer.classy$setAbilities(abilities);
-        } else if (this instanceof ServerPlayer serverPlayer) {
-            serverPlayer.classy$setAbilities(abilities);
-        }
-    }
+    List<PlayerAbility> classy$getAbilities();
+    void classy$clearAbilities();
+    void classy$addAbility(PlayerAbility ability);
+    void classy$removeAbility(PlayerAbility ability);
+    void classy$setAbilities(List<PlayerAbility> abilities);
 
-    default boolean classy$isCasting() {
-        if (this instanceof LocalPlayer localPlayer) {
-            localPlayer.classy$isCasting();
-        } else if (this instanceof ServerPlayer serverPlayer) {
-            serverPlayer.classy$isCasting();
-        }
-        return false;
-    }
-    default void classy$setCasting(boolean casting) {
-        if (this instanceof LocalPlayer localPlayer) {
-            localPlayer.classy$setCasting(casting);
-        } else if (this instanceof ServerPlayer serverPlayer) {
-            serverPlayer.classy$setCasting(casting);
-        }
-    }
+    boolean classy$isCasting();
+    void classy$setCasting(boolean casting);
+
+    void classy$updateAbilities();
 
     default int classy$getAbilityCount() {
         return classy$getAbilities().size();
     }
     default PlayerAbility classy$getAbility(int index) {
         return classy$getAbilityCount() < index ? null : classy$getAbilities().get(index);
+    }
+    default PlayerAbility classy$getAbility(ResourceLocation abilityId) {
+        List<PlayerAbility> matching = classy$getAbilities().stream().filter(ability -> ability.getId().equals(abilityId)).toList();
+        return matching.isEmpty() ? null : matching.getFirst();
     }
     default boolean classy$hasAbility(PlayerAbility ability) {
         for (PlayerAbility test : classy$getAbilities()) {

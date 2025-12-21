@@ -3,15 +3,12 @@
   "package": "com.pulsar.classy.mixin",
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
-  "client": [
-    "LocalPlayerAbilityMixin"
-  ],
+  "client": [],
   "mixins": [
-    "LocalPlayerClassMixin",
     "PlayerAbilityMixin",
     "PlayerClassMixin",
-    "ServerPlayerAbilityMixin",
-    "ServerPlayerClassMixin"
+    "PlayerAbilityMixin",
+    "PlayerClassMixin"
   ],
   "injectors": {
     "defaultRequire": 1

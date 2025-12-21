@@ -50,7 +50,6 @@ public abstract class PlayerAbility {
     public boolean canCast(Player player) {
         return false;
     }
-
     public boolean tryCast(Player player) {
         if (canCast(player)) {
             if (player instanceof ServerPlayer serverPlayer) {
