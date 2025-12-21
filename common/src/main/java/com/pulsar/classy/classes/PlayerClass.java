@@ -9,7 +9,6 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -31,17 +30,13 @@ public class PlayerClass {
             PlayerClass::getClassById
     );
 
-    /*public static final StreamCodec<ByteBuf, PlayerClass> SYNC_STREAM_CODEC = StreamCodec.of(
-            ((buf, playerClass) -> {
-                ResourceLocation.STREAM_CODEC.encode(buf, playerClass.getId());
-                ByteBufCodecs.collection(ArrayList::new, ResourceLocation.STREAM_CODEC).encode(buf, new ArrayList<>(playerClass.getAbilityIds()));
-            }),
-            ((buf) -> {
-                ResourceLocation id = ResourceLocation.STREAM_CODEC.decode(buf);
-                List<ResourceLocation> abilities = ByteBufCodecs.collection(ArrayList::new, ResourceLocation.STREAM_CODEC).decode(buf);
-                return new PlayerClass(id);
-            })
-    );*/
+    public Codec<? extends PlayerClass> codec() {
+        return CODEC;
+    }
+
+    public StreamCodec<ByteBuf, PlayerClass> streamCodec() {
+        return STREAM_CODEC;
+    }
 
     public static PlayerClass getClassById(ResourceLocation id) {
         return CLASSES.getRegistrar().get(id);
@@ -59,11 +54,11 @@ public class PlayerClass {
         this.abilities.addAll(abilityIds);
     }
 
-    private void addAbility(PlayerAbility ability) {
+    public void addAbility(PlayerAbility ability) {
         this.abilities.add(ability.getId());
     }
 
-    private void addAbility(ResourceLocation abilityId) {
+    public void addAbility(ResourceLocation abilityId) {
         this.abilities.add(abilityId);
     }
 
