@@ -49,47 +49,13 @@ subprojects {
     tasks.withType(JavaCompile).configureEach {
         it.options.release = 21
     }
+}
 
-    publishing {
-        publications {
-            mavenCommon(MavenPublication) {
-                from components.java
+tasks.register("publishModrinth") {
+    group = "publishing"
 
-                artifactId = "classy-common"
-
-                pom {
-                    name = "Classy! Common"
-                    description = "Common Architectury code for Classy!"
-                    url = "https://github.com/GDPulsar/Classy"
-
-                    developers {
-                        developer {
-                            id = "gdpulsar"
-                            name = "Pulsar"
-                        }
-                    }
-
-                    scm {
-                        connection = "scm:git:git://github.com/GDPulsar/Classy.git"
-                        developerConnection = "scm:git:ssh://github.com:GDPulsar/Classy.git"
-                        url = "https://github.com/GDPulsar/Classy"
-                    }
-                }
-            }
-        }
-
-        repositories {
-            maven {
-                name = "GitHubPackages"
-                url = uri("https://maven.pkg.github.com/GDPulsar/Librarby")
-                credentials {
-                    username = findProperty("gpr.user")
-                    password = findProperty("gpr.token")
-                }
-                authentication {
-                    basic(BasicAuthentication)
-                }
-            }
-        }
-    }
+    dependsOn(
+            project(":fabric").tasks.modrinth,
+            project(":neoforge").tasks.modrinth
+    )
 }

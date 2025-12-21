@@ -1,3 +1,8 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
 architectury {
     common rootProject.enabled_platforms.split(',')
 }
@@ -13,4 +18,47 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
 
     modImplementation "dev.architectury:architectury:$rootProject.architectury_api_version"
+}
+
+publishing {
+    publications {
+        mavenCommon(MavenPublication) {
+            from components.java
+
+            artifactId = "classy-common"
+
+            pom {
+                name = "Classy! Common"
+                description = "Common Architectury code for Classy!"
+                url = "https://github.com/GDPulsar/Classy"
+
+                developers {
+                    developer {
+                        id = "gdpulsar"
+                        name = "Pulsar"
+                    }
+                }
+
+                scm {
+                    connection = "scm:git:git://github.com/GDPulsar/Classy.git"
+                    developerConnection = "scm:git:ssh://github.com:GDPulsar/Classy.git"
+                    url = "https://github.com/GDPulsar/Classy"
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/GDPulsar/Librarby")
+            credentials {
+                username = findProperty("gpr.user")
+                password = findProperty("gpr.token")
+            }
+            authentication {
+                basic(BasicAuthentication)
+            }
+        }
+    }
 }
