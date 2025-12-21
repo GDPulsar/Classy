@@ -14,29 +14,17 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PlayerClass {
     public static final ResourceKey<Registry<PlayerClass>> PLAYER_CLASS = ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(Classy.MOD_ID, "player_class"));
     private static final DeferredRegister<PlayerClass> CLASSES = DeferredRegister.create(Classy.MOD_ID, PLAYER_CLASS);
 
-    public static final Codec<PlayerClass> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            ResourceLocation.CODEC.fieldOf("id").forGetter(PlayerClass::getId),
-            ResourceLocation.CODEC.listOf().fieldOf("abilities").forGetter(PlayerClass::getAbilityIds)
-    ).apply(instance, PlayerClass::new));
-
     public static final StreamCodec<ByteBuf, PlayerClass> STREAM_CODEC = StreamCodec.composite(
             ResourceLocation.STREAM_CODEC, PlayerClass::getId,
             PlayerClass::getClassById
     );
-
-    public Codec<? extends PlayerClass> codec() {
-        return CODEC;
-    }
-
-    public StreamCodec<ByteBuf, PlayerClass> streamCodec() {
-        return STREAM_CODEC;
-    }
 
     public static PlayerClass getClassById(ResourceLocation id) {
         return CLASSES.getRegistrar().get(id);
@@ -52,6 +40,11 @@ public class PlayerClass {
     public PlayerClass(ResourceLocation id, List<ResourceLocation> abilityIds) {
         this(id);
         this.abilities.addAll(abilityIds);
+    }
+
+    public PlayerClass(ResourceLocation id, PlayerAbility... abilities) {
+        this(id);
+        this.abilities.addAll(Arrays.stream(abilities).map(PlayerAbility::getId).toList());
     }
 
     public void addAbility(PlayerAbility ability) {
