@@ -16,7 +16,7 @@ repositories {
 dependencies {
     (...)
     // If including the library in your mod jar is not preferred, then remove the include word.
-    include modImplementation("io.github.gdpulsar:classy-common:0.1.1")
+    include modImplementation("io.github.gdpulsar:classy-common:0.1.2")
 }
 ```
 

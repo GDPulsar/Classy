@@ -8,6 +8,8 @@
   ],
   "mixins": [
     "LocalPlayerClassMixin",
+    "PlayerAbilityMixin",
+    "PlayerClassMixin",
     "ServerPlayerAbilityMixin",
     "ServerPlayerClassMixin"
   ],
