@@ -29,7 +29,7 @@ publishing {
 
             pom {
                 name = "Classy! Common"
-                description = "Common Architectury code for Classy!"
+                description = "Common Architectury package for Classy!"
                 url = "https://github.com/GDPulsar/Classy"
 
                 developers {

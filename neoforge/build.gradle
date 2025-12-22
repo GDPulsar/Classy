@@ -1,6 +1,8 @@
 plugins {
     id 'com.github.johnrengelman.shadow'
     id "com.modrinth.minotaur" version "2.+"
+    id 'java-library'
+    id 'maven-publish'
 }
 
 architectury {
@@ -73,4 +75,47 @@ shadowJar {
 
 remapJar {
     input.set shadowJar.archiveFile
+}
+
+publishing {
+    publications {
+        mavenCommon(MavenPublication) {
+            from components.java
+
+            artifactId = "classy-neoforge"
+
+            pom {
+                name = "Classy! NeoForge"
+                description = "NeoForge Architectury package for Classy!"
+                url = "https://github.com/GDPulsar/Classy"
+
+                developers {
+                    developer {
+                        id = "gdpulsar"
+                        name = "Pulsar"
+                    }
+                }
+
+                scm {
+                    connection = "scm:git:git://github.com/GDPulsar/Classy.git"
+                    developerConnection = "scm:git:ssh://github.com:GDPulsar/Classy.git"
+                    url = "https://github.com/GDPulsar/Classy"
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/GDPulsar/Librarby")
+            credentials {
+                username = findProperty("gpr.user")
+                password = findProperty("gpr.token")
+            }
+            authentication {
+                basic(BasicAuthentication)
+            }
+        }
+    }
 }

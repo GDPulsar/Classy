@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-@Mixin(ServerPlayer.class)
+@Mixin(Player.class)
 public abstract class PlayerAbilityMixin implements PlayerAbilityAccessor {
     @Unique
     private final ArrayList<PlayerAbility> classy$abilities = new ArrayList<>();
