@@ -29,7 +29,7 @@ configurations {
 
 modrinth {
     token = findProperty("modrinth.token")
-    projectId = "classy"
+    projectId = "classy!"
     versionNumber = project.version
     versionType = "alpha"
     versionName = "Classy NeoForge $mod_version"

@@ -7,8 +7,7 @@
   "mixins": [
     "PlayerAbilityMixin",
     "PlayerClassMixin",
-    "PlayerAbilityMixin",
-    "PlayerClassMixin"
+    "ServerPlayerDataMixin"
   ],
   "injectors": {
     "defaultRequire": 1
